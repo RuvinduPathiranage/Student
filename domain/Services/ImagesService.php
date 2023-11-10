@@ -13,6 +13,9 @@ class ImagesService
     {
         $this->images = new Image();
     }
+    
+    // student image store
+
     public function store($file){
         $name = time().'_'. $file->getClientOriginalName();
         $file->move(public_path('uploads'),$name);

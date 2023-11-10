@@ -31,22 +31,22 @@ export default {
         }
     },
     beforeMount() {
-        this.getstudent();
+        this.getstudent()
     },
     methods: {
         async getstudent() {
             this.student_list = (await axios.get(route('student.list'))).data
         },
 
-        submit() {
-            router.post('/student/store', this.form)
-            // await axios.post(route('student.store'), this.form).data;
+        async submit() {
+            router.post('/student/store', this.form);
+            // await axios.post(route('student.store'), this.form);
             this.form.name = '';
             this.form.age = '';
-            this.form.images = '';
-
+            document.getElementById("images").value = "";
             this.getstudent();
         },
+
         async deletestudent(id) {
             // students = router.post('/student/store', this.form)
             await axios.get(route('student.delete', id));
@@ -79,24 +79,38 @@ export default {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 mt-4 text-center">
-                        <h1 class="text-success">Student List</h1>
+                        <h1 class="text-success font-weight-bold">Student</h1>
                     </div>
                     <div class="col-12 mt-3">
                         <div class="row">
                             <form @submit.prevent="submit" enctype="multipart/form-data">
                                 <div class="input-group mb-3 col-12">
-                                    <input type="text" class="form-control col-6" placeholder="Name" v-model="form.name"
-                                        id="name" name="name" />
-                                    <input type="text" class="form-control col-6" placeholder="age" v-model="form.age"
-                                        id="age" name="age" />
+                                    <div class="form-floating mb-3">
+                                    <!-- name -->
+                                        <input type="text" class="form-control form-control col-6" id="name" name="name"
+                                            v-model="form.name" />
+                                        <label for="name">Input Name</label>
+                                    </div>
+                                    <!-- age -->
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control form-control col-6" id="age" name="age"
+                                            v-model="form.age" />
+                                        <label for="age">Input Age</label>
+                                    </div>
+                                    <!-- <input type="text" class="form-control col-6" placeholder="Name" v-model="form.name"
+                                            id="name" name="name" />
+                                        <input type="text" class="form-control col-6" placeholder="age" v-model="form.age" -->
+                                    <!-- id="age" name="age" /> -->
                                 </div>
+                                <!-- image -->
                                 <div class="input-group mb-1">
-                                    <input type="file" class="dropify col-4" placeholder="" name="images"
+                                    <input type="file" class="dropify col-4" placeholder="" id="images" name="images"
                                         @input="form.images = $event.target.files[0]" accept="image/jpg, image/png" />
                                 </div>
-                                <button class="btn btn-success mt-2 col-12" type="submit" id="">Button</button>
+                                <button class="btn btn-success mt-2 col-12" type="submit" id="">Add Student</button>
                             </form>
                         </div>
+                        <h5></h5>
 
                     </div>
 
@@ -113,13 +127,14 @@ export default {
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
+                        <!-- view details -->
                         <tbody>
                             <tr v-for="(student, key) in student_list">
                                 <th scope="row">{{ ++key }}</th>
                                 <td>{{ student.name }}</td>
                                 <td>{{ student.age }}</td>
                                 <!-- <td>{{ student.images }}</td> -->
-                                <td><img :src="getLogo(student.image)" alt="" class="imagetag"></td>
+                                <td><img :src="getLogo(student.image)" alt=" student image" class="imagetag"></td>
                                 <td>
                                     <span v-if="student.status == 0" class="badge bg-danger">inactive</span>
                                     <span v-else class="badge bg-success">active</span>
@@ -153,6 +168,9 @@ export default {
 
 
         </template>
+
+        
+        <!-- model  -->
         <template #models>
             <div class="modal fade" id="studentedit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="studenteditLabel" aria-hidden="true">
@@ -180,8 +198,8 @@ export default {
 
                                     <div class="co-12 mt-3">
                                         <div class="form-group">
-                                            <button type="submit"
-                                                class="btn btn-dark col-12 font-weight-bold" data-bs-dismiss="modal" aria-label="Close">Update</button>
+                                            <button type="submit" class="btn btn-dark col-12 font-weight-bold"
+                                                data-bs-dismiss="modal" aria-label="Close">Update</button>
                                         </div>
                                     </div>
                                 </div>

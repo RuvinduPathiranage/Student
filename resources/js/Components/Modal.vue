@@ -96,3 +96,8 @@ const maxWidthClass = computed(() => {
         </Transition>
     </Teleport>
 </template>
+<style scoped>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</style>

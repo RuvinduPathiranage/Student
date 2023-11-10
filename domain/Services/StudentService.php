@@ -13,39 +13,47 @@ class StudentService
     {
         $this->student = new student();
     }
+
+    // loding page
     public function all()
     {
         return $this->student->all();
     }
+
+    // student store
     public function store($data)
     {
-        // dd($data);
         if (isset($data['images'])) {
             $image = ImagesFacade::store($data['images']);
             $data['image'] = $image->name;
-            // dd($data);
         }
         $this->student->create($data);
     }
+
+    // student delete
     public function delete($student_id)
     {
         $this->student->destroy($student_id);
     }
+
+    // student status change
     public function status($student_id)
     {
         $student = $this->student->find($student_id);
         if ($student->status == 0) {
             $student->status = 1;
             $student->update();
-        }else{
+        } else {
             $student->status = 0;
             $student->update();
         }
     }
+    // student update details geting
     public function edit($student_id)
     {
         return $this->student->find($student_id);
     }
+    // student update
 
     public function update(array $data, $student_id)
     {
@@ -56,4 +64,3 @@ class StudentService
         $student->update();
     }
 }
-

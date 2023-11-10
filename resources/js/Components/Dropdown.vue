@@ -75,3 +75,8 @@ const open = ref(false);
         </Transition>
     </div>
 </template>
+<style scoped>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</style>

@@ -13,7 +13,7 @@ export default {
   
     <AppLayout>
         <template #content>
-            <h1>Dashboad list</h1>
+            <h1>Dashboad</h1>
         </template>
     </AppLayout>      
 

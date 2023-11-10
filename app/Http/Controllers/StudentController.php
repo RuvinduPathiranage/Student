@@ -10,42 +10,44 @@ use Inertia\Inertia;
 
 class StudentController extends ParentController
 {
+
+    // loding page
     public function index()
     {
-        // $response['students'] = StudentFacade::all();
-        // return Inertia::render('Student/index', $response);
         return Inertia::render('Student/index');
     }
+
+    // student store
     public function store(Request $request)
     {
         StudentFacade::store($request->all());
-        // $response['students'] = StudentFacade::all();
-        // return response()->json($response);
-        //  return StudentFacade::store($request->all());
     }
+    // student listing
+
     public function list()
     {
-        $response= StudentFacade::all();
+        $response = StudentFacade::all();
         return response()->json($response);
-
     }
+    // student delete
+
     public function delete($student_id)
     {
-        // dd($student_id);
         StudentFacade::delete($student_id);
-        // return redirect()->back();
     }
+    // student status change
+
     public function status($student_id)
     {
         StudentFacade::status($student_id);
-        // return redirect()->back();
     }
+    // student update details geting
     public function edit($student_id)
     {
         $student = StudentFacade::edit($student_id);
         return response()->json($student);
-
     }
+    // student update
     public function update(Request $request, $student_id)
     {
         return StudentFacade::update($request->all(), $student_id);

@@ -29,3 +29,8 @@ defineExpose({ focus: () => input.value.focus() });
         ref="input"
     />
 </template>
+<style scoped>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</style>
